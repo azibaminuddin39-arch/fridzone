@@ -1,0 +1,198 @@
+:root {
+    --bg-color: #0a0a0a;
+    --text-main: #ffffff;
+    --text-dim: #555555;
+    --card-bg: rgba(255, 255, 255, 0.02);
+    --card-border: rgba(255, 255, 255, 0.06);
+    --glow: rgba(255, 255, 255, 0.15);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: 'Inter', -apple-system, sans-serif;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.wrapper {
+    width: 100%;
+    max-width: 1000px;
+    padding: 60px 20px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 1s ease-out;
+}
+
+.wrapper.visible { opacity: 1; transform: translateY(0); }
+
+/* ==================== BAGIAN HEADER HERO STYLING ==================== */
+header {
+    position: relative;
+    text-align: center;
+    margin-bottom: 70px;
+    padding: 40px 0;
+    overflow: visible; /* Memastikan efek blur tidak terpotong */
+}
+
+/* Efek Latar Belakang Animated Gradient Blur (Aurora Monochrome) */
+.header-bg-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 350px;
+    height: 130px;
+    /* Kombinasi warna gradasi hitam, abu-abu, dan putih */
+    background: linear-gradient(-45deg, #ffffff, #333333, #888888, #111111);
+    background-size: 300% 300%;
+    filter: blur(50px); /* Membuat gradasi menjadi blur halus kabur */
+    opacity: 0.35; /* Ketebalan cahaya latar belakang */
+    z-index: 1;
+    border-radius: 50%;
+    animation: aurora-move 8s ease infinite;
+    pointer-events: none; /* Agar tidak mengganggu kursor mouse */
+}
+
+/* Font Bold Baru untuk fridzone */
+h1.glow-text {
+    position: relative;
+    z-index: 2; /* Menempatkan teks di atas lapisan blur */
+    font-size: 4.8rem; /* Ukuran font diperbesar agar terlihat kokoh */
+    font-weight: 900;  /* Ultra Bold / Tertebal */
+    letter-spacing: -3px; /* Jarak huruf dirapatkan untuk gaya modern brutalist */
+    text-transform: lowercase;
+    margin: 0;
+    color: #ffffff;
+    mix-blend-mode: difference; /* Efek optik premium saat bertabrakan dengan background */
+}
+
+/* Animasi Pergerakan Cairan Gradasi */
+@keyframes aurora-move {
+    0% {
+        background-position: 0% 50%;
+        transform: translate(-50%, -50%) rotate(0deg) scale(1);
+    }
+    50% {
+        background-position: 100% 50%;
+        transform: translate(-50%, -50%) rotate(180deg) scale(1.2); /* Membesar dan berputar */
+    }
+    100% {
+        background-position: 0% 50%;
+        transform: translate(-50%, -50%) rotate(360deg) scale(1);
+    }
+}
+
+/* Layout Utama */
+.main-content {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+.section-column { flex: 1; width: 100%; }
+
+/* Card Universal */
+.glow-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.glow-card:hover {
+    border-dash: 1px solid rgba(255,255,255,0.15);
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.04);
+}
+
+/* Playlist List */
+.playlists-container { display: flex; flex-direction: column; gap: 15px; }
+
+.playlist-card {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    gap: 20px;
+    text-decoration: none;
+    color: inherit;
+}
+
+.playlist-cover {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    object-fit: cover;
+    filter: grayscale(100%);
+    transition: filter 0.3s ease;
+}
+
+.playlist-card:hover .playlist-cover { filter: grayscale(0%); }
+
+.playlist-info {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 15px;
+}
+
+.playlist-number { font-size: 0.8rem; color: var(--text-dim); font-family: monospace; }
+.playlist-title { font-size: 0.95rem; font-weight: 300; margin: 0; flex: 1; letter-spacing: 1px; }
+.playlist-sub { font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin: 0; }
+
+/* Discord Card */
+.discord-card { padding: 40px 30px; text-align: center; }
+.avatar-wrapper { position: relative; width: 100px; height: 100px; margin: 0 auto 20px; }
+#discord-avatar { width: 100%; height: 100%; border-radius: 50%; border: 1px solid var(--card-border); }
+
+#status-dot {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 3px solid var(--bg-color);
+    background: #747f8d;
+}
+
+/* Warna Status Dot */
+.status-online { background: #43b581 !important; box-shadow: 0 0 10px rgba(67,181,129,0.4); }
+.status-idle { background: #faa61a !important; }
+.status-dnd { background: #f04747 !important; box-shadow: 0 0 10px rgba(240,71,71,0.4); }
+.status-offline { background: #747f8d !important; }
+
+#discord-name { font-size: 1.3rem; font-weight: 300; margin: 0; letter-spacing: 2px; }
+#discord-tag { color: var(--text-dim); margin-top: 4px; font-size: 0.8rem; }
+
+.activity-section { margin: 25px 0; padding: 15px; background: rgba(255,255,255,0.01); border-radius: 12px; text-align: left; border: 1px solid rgba(255,255,255,0.02); }
+.label { font-size: 0.65rem; text-transform: uppercase; color: var(--text-dim); letter-spacing: 2px; margin-bottom: 6px; margin-top: 0; }
+#discord-activity { font-size: 0.85rem; line-height: 1.4; color: #bbb; }
+
+.discord-btn {
+    display: block;
+    padding: 12px;
+    border: 1px solid var(--card-border);
+    border-radius: 25px;
+    color: white;
+    text-decoration: none;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: 0.3s;
+}
+
+.discord-btn:hover { background: white; color: black; box-shadow: 0 0 15px rgba(255,255,255,0.3); }
+
+footer { text-align: center; margin-top: 60px; color: var(--text-dim); font-size: 0.65rem; letter-spacing: 5px; }
+
+/* Responsive Mobile */
+@media (max-width: 800px) {
+    .main-content { flex-direction: column; gap: 25px; }
+    .wrapper { padding: 40px 15px; }
+    h1.glow-text { font-size: 2.2rem; }
+}
